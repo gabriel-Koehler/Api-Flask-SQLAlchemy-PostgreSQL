@@ -13,24 +13,32 @@ class User(db.Model):
         return f'<User {self.name} {self.id}>'
     @property
     def serialize(self):
+        relation= Relation.query.filter_by(id_user=self.id).first()
+        relation_data = relation.serialize if relation else None
+        # print(relation_data)
         return {
             "id":self.id,
             "name":self.name,
             "email":self.email,
             "password":self.password,
-            "create_time":self.cread_at
+            "create_time":self.cread_at,
+            "amount":relation_data
         }
 class Relation(db.Model):
     __tablename__="Relation"
     id=db.Column(db.Integer,primary_key=True)
     amount=db.Column(db.Numeric(10,2),default=0)
     id_user=db.Column(db.Integer,db.ForeignKey("User.id"))
-    created_at=db.Column(db.DateTime(timezone=True),sever_default=func.now())
+    created_at=db.Column(db.DateTime(timezone=True),server_default=func.now())
+
+    def __repr__(self):
+        return f'<{self.id} {self.id_user}>'
 
     @property
     def serialize(self):
         return {
             "id":self.id,
+            "id_user":self.id_user,
             "amount":self.amount,
             "created_at":self.created_at
         }

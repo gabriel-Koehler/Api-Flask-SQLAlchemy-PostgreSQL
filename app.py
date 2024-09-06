@@ -43,6 +43,23 @@ def signup():
 def loggin():
     data=request.json
 
+
+@app.route("/relation",methods=["POST"])
+def relationCreate():
+    data=request.json
+    amount=data.get("amount")
+    user_id=data.get("userId")
+    relation=Relation(id_user=user_id,amount=amount)
+    try:
+        db.session.add(relation)
+        db.session.commit()
+    except TypeError:
+        print(TypeError)
+    return make_response({
+        "data":relation.serialize,
+        "menssage":"successful"
+    },200)
+
 @app.route("/getuser",methods=["GET"])
 def getUser():
     users=User.query.all()
