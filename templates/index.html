@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Api</title>
+  <style>
+    h1{
+    color:red;
+    }
+
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Api Flask SQL Alchemy</h1>
+  </div>
+  <div>
+    {% for user in users %}
+      <div class="title">{{ user.name }}</div>
+      <li>{{user.email}}</li>
+      <li>{{user.cread_at}}</li>
+    {% endfor %}
+  </div>
+</body>
+</html>
