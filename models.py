@@ -14,6 +14,7 @@ class User(db.Model):
     @property
     def serialize(self):
         relation= Relation.query.filter_by(id_user=self.id).first()
+        # transformar uma query em um resultado
         relation_data = relation.serialize if relation else None
         # print(relation_data)
         return {
